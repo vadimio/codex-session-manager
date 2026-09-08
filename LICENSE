@@ -1,0 +1,59 @@
+codex-man Source-Available License — No Resale
+Version 1.0
+
+Copyright (c) 2026 vadimio and contributors
+
+1. Permission
+
+Subject to the conditions below, you may use, copy, study, modify, and distribute
+this software and its accompanying project documentation (the "Software") free
+of charge. Personal, educational, nonprofit, and commercial or business use are
+all permitted. You may use the Software in your paid work and to create products
+or services for customers.
+
+2. No sale or resale of the Software
+
+You may not sell, resell, or charge a license fee for copies of the Software,
+whether original or modified, without separate written permission from the
+relevant copyright holders. This restriction also applies to bundling the
+Software into a product for sale; describing the Software's portion of the
+price as zero does not remove the restriction.
+
+This restriction does not apply to your work or output created using the
+Software, or to charges for consulting, installation, support, or other services
+that do not sell or license copies of the Software for a fee. Merely using the
+Software in a business does not require a separate commercial license.
+
+For permission to sell or resell, contact the project maintainer at
+https://github.com/vadimio/codex-session-manager by opening an issue requesting
+a commercial licensing contact. Do not include confidential business details
+in a public issue. Permission must be agreed in writing before sale or resale.
+
+3. Redistribution and notices
+
+Redistributions, including modified versions, must retain this license and the
+copyright notices. They must remain subject to these permissions and conditions.
+Identify your modifications and do not imply endorsement by the original
+maintainer. This license grants no trademark rights. Third-party dependencies
+remain under their own licenses; this license does not replace those terms.
+
+4. Contributions
+
+Unless explicitly agreed otherwise in writing, contributions intentionally
+submitted for inclusion in this project are offered under this same license.
+Contributors retain copyright in their contributions. Submitting a contribution
+does not itself authorize the maintainer to relicense that contribution under
+different terms or sell it in violation of this license.
+
+5. No warranty; limitation of liability
+
+The Software is provided as is and as available, without warranties of any kind,
+express or implied, including merchantability, fitness for a particular purpose,
+title, and noninfringement. To the extent permitted by applicable law, no author
+or copyright holder is liable for any claim, damages, or other liability arising
+from the Software or its use, whether in contract, tort, or otherwise.
+
+6. Scope
+
+Rights not expressly granted are reserved. This is a custom source-available
+license. It is not the MIT License and is not an OSI-approved open-source license.

@@ -1,0 +1,59 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        python: ['3.11', '3.13']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          enable-cache: ${{ github.event_name == 'push' }}
+          cache-dependency-glob: "uv.lock"
+      - name: Run unit tests
+        run: >-
+          uv run --locked --python ${{ matrix.python }}
+          pytest -q
+      - name: Lint source
+        run: uv run --locked ruff check .
+      - name: Check standalone dependency lock
+        run: uv lock --script codex_session_manager.py --check
+      - name: Compile source
+        run: python -m compileall -q .
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Reject runtime data in Git
+        run: python3 scripts/check_repository.py
+      - name: Scan all history for secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          scanner_dir=$(mktemp -d)
+          curl --fail --location --silent --show-error --retry 3 \
+            https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz \
+            --output "$scanner_dir/gitleaks.tar.gz"
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  $scanner_dir/gitleaks.tar.gz" | sha256sum --check
+          tar -xzf "$scanner_dir/gitleaks.tar.gz" -C "$scanner_dir" gitleaks
+          "$scanner_dir/gitleaks" git --redact --ignore-gitleaks-allow --log-opts=--all .
